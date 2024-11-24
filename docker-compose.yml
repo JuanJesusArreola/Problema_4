@@ -20,7 +20,7 @@ services:
     ports:
       - "${WEB_SERVER_PORT}:80"
     volumes:
-      - ./public:/usr/share/nginx/html      # Carpeta de archivos estáticos
+      - ./public:/usr/share/nginx/html  # Carpeta de archivos estáticos
     networks:
       - dev-network
     depends_on:
