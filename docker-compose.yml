@@ -1,5 +1,4 @@
-services:
-  # Servicio de MySQL
+# Servicio de MySQL
   mysql:
     image: mysql:5.7
     environment:
@@ -8,7 +7,7 @@ services:
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     volumes:
-      - mysql-data:/var/lib/mysql  # Persistencia de datos en contenedor
+      - mysql-data:/var/lib/mysql
     networks:
       - dev-network
     restart: always
@@ -16,22 +15,21 @@ services:
   # Servicio de Nginx (servidor web)
   web:
     image: nginx:latest
-    container_name: nginx-serverjenkins3
+    container_name: nginx-serverjenkins
     ports:
-      - "${WEB_SERVER_PORT}:80"  # Mapea el puerto en el host
+      - "${WEB_SERVER_PORT}:80"
     volumes:
-      - ./public:/usr/share/nginx/html  # Carpeta local con los archivos estáticos
-        # Si tienes un archivo de configuración personalizado
+      - ./public:/usr/share/nginx/html  # Carpeta de archivos estáticos
     networks:
       - dev-network
     depends_on:
-      - mysql  # Asegura que el servicio MySQL esté disponible antes de iniciar Nginx
+      - mysql
     restart: always
 
 networks:
   dev-network:
-    driver: bridge  # Red interna para comunicación entre contenedores
+    driver: bridge
 
 volumes:
   mysql-data:
-    driver: local  # Almacena los datos persistentes de MySQL
+    driver: local
